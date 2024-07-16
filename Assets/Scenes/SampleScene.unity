@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 1380380057}
   m_Layer: 6
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -356,11 +356,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3730448144238748024, guid: 73890c20badeb6144bc58bdec8e15ef2,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3730448144238748024, guid: 73890c20badeb6144bc58bdec8e15ef2,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -412,6 +407,11 @@ PrefabInstance:
     - target: {fileID: 3854682414922925745, guid: 73890c20badeb6144bc58bdec8e15ef2,
         type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3854682414922925745, guid: 73890c20badeb6144bc58bdec8e15ef2,
+        type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
