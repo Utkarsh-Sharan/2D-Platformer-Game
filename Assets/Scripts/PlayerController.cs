@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D _rigidBody;
     private bool _isGrounded = true;
+
     private float _jumpForce = 5.0f;
+    private float _moveSpeed = 10.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -34,15 +36,24 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
-        _anim.SetFloat("Speed", Mathf.Abs(speed));
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        MoveAnimation(horizontalInput);
+
+        Vector2 position = transform.position;
+        position.x += horizontalInput * _moveSpeed * Time.deltaTime;
+        transform.position = position;
+    }
+
+    private void MoveAnimation(float horizontalInput)
+    {
+        _anim.SetFloat("Speed", Mathf.Abs(horizontalInput));
         Vector2 _scale = transform.localScale;
 
-        if (speed < 0)
+        if (horizontalInput < 0)
         {
             _scale.x = -1.0f * Mathf.Abs(_scale.x);
         }
-        else if (speed > 0)
+        else if (horizontalInput > 0)
         {
             _scale.x = Mathf.Abs(_scale.x);
         }
