@@ -27,6 +27,10 @@ public class PlayerController : MonoBehaviour
         {
             Crouch();
         }
+        else
+        {
+            _anim.SetBool("Crouch", false);
+        }
 
         if(Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         {
