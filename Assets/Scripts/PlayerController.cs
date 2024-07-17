@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Animator _anim;
+    [SerializeField] private Transform _levelStartTransform;
 
     private Rigidbody2D _rigidBody;
     private bool _isGrounded = true;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        transform.position = _levelStartTransform.position;
     }
 
     // Update is called once per frame
@@ -26,6 +28,10 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftControl))
         {
             Crouch();
+        }
+        else
+        {
+            _anim.SetBool("Crouch", false);
         }
 
         if(Input.GetKeyDown(KeyCode.Space) && _isGrounded)
