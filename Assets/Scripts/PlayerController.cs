@@ -7,16 +7,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator _anim;
     [SerializeField] private Transform _levelStartTransform;
 
+    private ScoreController _scoreController;
     private Rigidbody2D _rigidBody;
     private bool _isGrounded = true;
 
     private float _jumpForce = 5.0f;
     private float _moveSpeed = 10.0f;
 
+    private void Awake()
+    {
+        _rigidBody = GetComponent<Rigidbody2D>();
+        _scoreController = GameObject.Find("Score").GetComponent<ScoreController>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        _rigidBody = GetComponent<Rigidbody2D>();
         transform.position = _levelStartTransform.position;
     }
 
@@ -79,6 +85,11 @@ public class PlayerController : MonoBehaviour
         _anim.SetBool("Jump", true);
 
         _rigidBody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+    }
+
+    public void PickUpKey()
+    {
+        _scoreController.IncrementScore(1);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
