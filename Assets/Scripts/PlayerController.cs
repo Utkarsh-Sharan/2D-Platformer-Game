@@ -88,5 +88,9 @@ public class PlayerController : MonoBehaviour
             _isGrounded = true;
             _anim.SetBool("Jump", false);
         }
+        else if (other.gameObject.CompareTag("DeathPlatform"))
+        {
+            _anim.SetTrigger("Death");
+        }
     }
 }
