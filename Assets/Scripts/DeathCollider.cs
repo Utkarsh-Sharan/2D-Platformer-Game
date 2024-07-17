@@ -10,12 +10,13 @@ public class DeathCollider : MonoBehaviour
         if (other.gameObject.GetComponent<PlayerController>())
         {
             StartCoroutine(DeathAnimationWait());
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
     IEnumerator DeathAnimationWait()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.31f);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -1,35 +1,41 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class KeyController : MonoBehaviour
 {
-    private Animator _keyAnimator;
-
-    private void Awake()
-    {
-        _keyAnimator = GetComponent<Animator>(); 
-        if(_keyAnimator == null)
-        {
-            Debug.LogError("Key animator null!");
-        }
-    }
+    float originalY;
+    private float floatStrength = 0.2f;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<PlayerController>())
+        if (other.gameObject.CompareTag("Player"))
         {
             PlayerController playerController = GameObject.Find("Player").GetComponent<PlayerController>();
             playerController.PickUpKey();
 
             StartCoroutine(KeyCollectedAnimationTimer());
-            Destroy(this.gameObject);
         }
+    }
+
+    void Start()
+    {
+        this.originalY = this.transform.position.y;
+    }
+
+    void Update()
+    {
+        transform.position = new Vector3(transform.position.x,
+                                         originalY + ((float)Math.Sin(Time.time) * floatStrength),
+                                         transform.position.z);
     }
 
     IEnumerator KeyCollectedAnimationTimer()
     {
-        _keyAnimator.SetBool("Collected", true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.2f);
+
+        Destroy(this.gameObject);
     }
 }
