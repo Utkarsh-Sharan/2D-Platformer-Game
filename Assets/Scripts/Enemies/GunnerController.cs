@@ -31,18 +31,27 @@ public class GunnerController : EnemyController
     // Update is called once per frame
     void Update()
     {
-        if(_currentPosition.x == wayPoint1.position.x)
+        Movement();
+        SetCurrentPosition();
+    }
+
+    void Movement()
+    {
+        if (_currentPosition.x == wayPoint1.position.x)
         {
             _rigidBody.velocity = new Vector2(_speed, 0);
             _spriteRenderer.flipX = true;
         }
-        else if(_currentPosition.x == wayPoint2.position.x)
+        else if (_currentPosition.x == wayPoint2.position.x)
         {
             _rigidBody.velocity = new Vector2(-_speed, 0);
             _spriteRenderer.flipX = false;
         }
+    }
 
-        if(Vector2.Distance(_currentPosition, transform.position) < 0.5f && _currentPosition.x == wayPoint1.position.x)
+    void SetCurrentPosition()
+    {
+        if (Vector2.Distance(_currentPosition, transform.position) < 0.5f && _currentPosition.x == wayPoint1.position.x)
         {
             _currentPosition.x = wayPoint2.position.x;
         }
