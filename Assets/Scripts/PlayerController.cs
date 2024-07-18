@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Animator _anim;
     [SerializeField] private Transform _levelStartTransform;
+    [SerializeField] private TextMeshProUGUI _playerLivesText;
 
     private ScoreController _scoreController;
     private Rigidbody2D _rigidBody;
@@ -13,6 +16,8 @@ public class PlayerController : MonoBehaviour
 
     private float _jumpForce = 8.0f;
     private float _moveSpeed = 10.0f;
+
+    private int _playerLives = 3;
 
     private void Awake()
     {
@@ -24,6 +29,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         transform.position = _levelStartTransform.position;
+        _playerLivesText.text = "Lives: " + _playerLives.ToString();
     }
 
     // Update is called once per frame
@@ -102,6 +108,17 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("DeathPlatform"))
         {
             _anim.SetTrigger("Death");
+        }
+        else if (other.gameObject.GetComponent<EnemyController>())
+        {
+            _playerLives--;
+            _playerLivesText.text = "Lives: " + _playerLives.ToString();
+
+            if (_playerLives <= 0)
+            {
+                _playerLives = 0;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
     }
 }
