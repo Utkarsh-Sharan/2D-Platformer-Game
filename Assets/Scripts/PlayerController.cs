@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rigidBody;
     private bool _isGrounded = true;
 
-    private float _jumpForce = 5.0f;
+    private float _jumpForce = 8.0f;
     private float _moveSpeed = 10.0f;
 
     private void Awake()
