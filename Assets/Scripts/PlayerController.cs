@@ -9,10 +9,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator _anim;
     [SerializeField] private Transform _levelStartTransform;
     [SerializeField] private TextMeshProUGUI _playerLivesText;
+    [SerializeField] private GameObject _gameOverUI;
 
     private ScoreController _scoreController;
     private Rigidbody2D _rigidBody;
+
     private bool _isGrounded = true;
+    private bool _isAlive = true; 
 
     private float _jumpForce = 8.0f;
     private float _moveSpeed = 10.0f;
@@ -35,20 +38,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (_isAlive)
+        {
+            Move();
 
-        if(Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            Crouch();
-        }
-        else
-        {
-            _anim.SetBool("Crouch", false);
-        }
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                Crouch();
+            }
+            else
+            {
+                _anim.SetBool("Crouch", false);
+            }
 
-        if(Input.GetKeyDown(KeyCode.Space) && _isGrounded)
-        {
-            Jump();
+            if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+            {
+                Jump();
+            }
         }
     }
 
@@ -107,17 +113,25 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("DeathPlatform"))
         {
+            _isAlive = false;
+            _playerLives = 0;
+
             _anim.SetTrigger("Death");
         }
         else if (other.gameObject.GetComponent<EnemyController>())
         {
-            _playerLives--;
-            _playerLivesText.text = "Lives: " + _playerLives.ToString();
-
-            if (_playerLives <= 0)
+            if (_isAlive)
             {
-                _playerLives = 0;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                _playerLives--;
+                _playerLivesText.text = "Lives: " + _playerLives.ToString();
+            }
+
+            if (_playerLives == 0)
+            {
+                _isAlive = false;
+
+                _anim.SetTrigger("Death");
+                _gameOverUI.SetActive(true);
             }
         }
     }

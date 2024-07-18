@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class DeathCollider : MonoBehaviour
 {
+    [SerializeField] private GameObject _gameOverUI;
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.GetComponent<PlayerController>())
@@ -17,6 +19,6 @@ public class DeathCollider : MonoBehaviour
     {
         yield return new WaitForSeconds(0.31f);
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        _gameOverUI.SetActive(true);
     }
 }
