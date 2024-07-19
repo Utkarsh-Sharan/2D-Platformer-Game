@@ -82,6 +82,7 @@ public enum Sounds
     BUTTON_CLICK,
     PLAYER_MOVE,
     MUSIC,
+    GAME_COMPLETE_MUSIC,
     PLAYER_DEATH,
     PLAYER_HURT
 }
