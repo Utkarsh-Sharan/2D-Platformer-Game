@@ -44,10 +44,15 @@ public class LevelManager : MonoBehaviour
         if(nextSceneIndex < _levels.Length)
         {
             SetLevelStatus(_levels[nextSceneIndex], LevelStatus.UNLOCKED);
-        }
 
-        //load next level.
-        SceneManager.LoadScene(nextSceneIndex + 1);
+            //load next level.
+            SceneManager.LoadScene(nextSceneIndex + 1);
+        }
+        else if(nextSceneIndex == _levels.Length)
+        {
+            SoundManager.Instance.PlayMusic(Sounds.GAME_COMPLETE_MUSIC);
+            SceneManager.LoadScene(6);
+        }
     }
 
     public LevelStatus GetLevelStatus(int level)

@@ -22,8 +22,16 @@ public class LobbyController : MonoBehaviour
         }
     }
 
+    public void BackToMenu()
+    {
+        SoundManager.Instance.Play(Sounds.BUTTON_CLICK);
+        SoundManager.Instance.PlayMusic(Sounds.MUSIC);
+        SceneManager.LoadScene(0);
+    }
+
     public void QuitGame()
     {
+        SoundManager.Instance.Play(Sounds.BUTTON_CLICK);
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 #else
