@@ -117,6 +117,7 @@ public class PlayerController : MonoBehaviour
             _playerLives = 0;
 
             _anim.SetTrigger("Death");
+            SoundManager.Instance.PlayMusic(Sounds.PLAYER_DEATH);
         }
         else if (other.gameObject.GetComponent<EnemyController>())
         {
@@ -124,12 +125,14 @@ public class PlayerController : MonoBehaviour
             {
                 _playerLives--;
                 _playerLivesText.text = "Lives: " + _playerLives.ToString();
+                SoundManager.Instance.Play(Sounds.PLAYER_HURT);
             }
 
             if (_playerLives == 0)
             {
                 _isAlive = false;
 
+                SoundManager.Instance.PlayMusic(Sounds.PLAYER_DEATH);
                 _anim.SetTrigger("Death");
                 _gameOverUI.SetActive(true);
             }

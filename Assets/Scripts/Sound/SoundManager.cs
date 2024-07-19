@@ -1,0 +1,87 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SoundManager : MonoBehaviour
+{
+    private static SoundManager _instance;
+    public static SoundManager Instance { get { return _instance; } }
+
+    [SerializeField] private AudioSource _soundEffect;
+    [SerializeField] private AudioSource _soundBgMusic;
+
+    [SerializeField] private SoundType[] _sounds;
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        PlayMusic(Sounds.MUSIC);
+    }
+
+    public void PlayMusic(Sounds sound)
+    {
+        AudioClip clip = getAudioClip(sound);
+        if (clip != null)
+        {
+            _soundBgMusic.clip = clip;
+            _soundBgMusic.Play();
+        }
+        else
+        {
+            Debug.LogError("Clip not found for: " + sound);
+        }
+    }
+
+    public void Play(Sounds sound)
+    {
+        AudioClip clip = getAudioClip(sound);
+        if (clip != null)
+        {
+            _soundEffect.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogError("Clip not found for: " + sound);
+        }
+    }
+
+    private AudioClip getAudioClip(Sounds sound)
+    {
+        SoundType item = Array.Find(_sounds, soundItem => soundItem.soundType == sound);
+
+        if(item != null)
+        {
+            return item.soundClip;
+        }
+        return null;
+    }
+}
+
+[Serializable]
+public class SoundType
+{
+    public Sounds soundType;
+    public AudioClip soundClip;
+}
+
+public enum Sounds
+{
+    BUTTON_CLICK,
+    PLAYER_MOVE,
+    MUSIC,
+    PLAYER_DEATH,
+    PLAYER_HURT
+}

@@ -9,6 +9,8 @@ public class LobbyController : MonoBehaviour
     [SerializeField] private GameObject[] _uiElements = new GameObject[4];
     public void PlayGame()
     {
+        SoundManager.Instance.Play(Sounds.BUTTON_CLICK);
+
         for (int i = 0; i < 2; i++)
         {
             _uiElements[i].SetActive(false);
