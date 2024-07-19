@@ -46,6 +46,7 @@ public class LevelManager : MonoBehaviour
             SetLevelStatus(_levels[nextSceneIndex], LevelStatus.UNLOCKED);
 
             //load next level.
+            SoundManager.Instance.Play(Sounds.LEVEL_COMPLETE);
             SceneManager.LoadScene(nextSceneIndex + 1);
         }
         else if(nextSceneIndex == _levels.Length)

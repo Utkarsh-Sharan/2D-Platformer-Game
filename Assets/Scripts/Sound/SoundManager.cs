@@ -83,6 +83,7 @@ public enum Sounds
     PLAYER_MOVE,
     MUSIC,
     GAME_COMPLETE_MUSIC,
+    LEVEL_COMPLETE,
     PLAYER_DEATH,
     PLAYER_HURT
 }
