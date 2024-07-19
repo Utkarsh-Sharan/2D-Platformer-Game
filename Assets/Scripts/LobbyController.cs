@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _uiElements = new GameObject[5];
+    [SerializeField] private GameObject[] _uiElements = new GameObject[4];
     public void PlayGame()
     {
         for (int i = 0; i < 2; i++)
@@ -14,20 +14,10 @@ public class LobbyController : MonoBehaviour
             _uiElements[i].SetActive(false);
         }
 
-        for (int i = 2; i < 5; i++)
+        for (int i = 2; i < 4; i++)
         {
             _uiElements[i].SetActive(true);
         }
-    }
-
-    public void PlayLevel1()
-    {
-        SceneManager.LoadScene(1);
-    }
-
-    public void PlayLevel2()
-    {
-        SceneManager.LoadScene(2);
     }
 
     public void QuitGame()
