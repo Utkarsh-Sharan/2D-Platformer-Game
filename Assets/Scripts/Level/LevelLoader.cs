@@ -23,7 +23,7 @@ public class LevelLoader : MonoBehaviour
         switch (levelStatus)
         {
             case LevelStatus.LOCKED:
-                Debug.Log("LOCKED!");
+                SoundManager.Instance.Play(Sounds.LEVEL_LOCKED);
                 break;
 
             case LevelStatus.UNLOCKED:
